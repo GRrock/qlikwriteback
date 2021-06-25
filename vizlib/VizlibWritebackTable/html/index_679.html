@@ -1,0 +1,17 @@
+<div class="vzl-toast container" >
+    <div class="toast" [ngClass]="cssClasses.type">
+        <div class="icon" [ngClass]="cssClasses.type">
+            <i class="lui-icon {{cssClasses.icon}}" aria-hidden="true"></i>
+        </div>
+        <div class="content">
+            <p class="type">{{options.type | uppercase }}</p>
+            <p class="message" [ngClass]="cssClasses.type">
+                <ng-content></ng-content>
+                <ng-template componentInsertion> </ng-template>
+            </p>
+        </div>
+        <div class="close" (click)="close.emit()">
+            <i class="lui-icon lui-icon--close" aria-hidden="true"></i>
+        </div>
+    </div>
+</div>

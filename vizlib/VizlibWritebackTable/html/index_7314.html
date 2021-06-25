@@ -1,0 +1,45 @@
+<lui-popover
+    style="min-width: 200px;width: 230px;"
+    align-to="alignTo"
+    position="bottom"
+    on-close-view="close(event)"
+    qva-outside-ignore-for="{{qvaOutsideIgnoreFor}}"
+    class="pp-type-popover"
+    tid="pp-type-popover"
+>   
+<object-add-typeahead>
+<lui-popover-header ng-hide="hideSearch">        
+    <div ng-hide="hideSearch" class="lui-input-group" >
+          <span class="lui-input-group__item lui-search__search-icon"></span>
+          <input  class="lui-search__input lui-input no-focus-highlight  lui-input-group__item" 
+            maxlength="255" 
+            ng-model="search.term" 
+            style="padding-left:4px; width: 174px;"
+            spellcheck="false" 
+            type="text" 
+            q-placeholder="Common.Search" 
+            ng-trim="true" 
+            aria-invalid="false"
+            on-escape="onEscape($event)"
+            on-enter="onEnter($event)">
+          <button class="asset-search-panel-clear-search  lui-search__clear-button ng-hide" ng-click="onClear();" ng-hide="!search.term" q-title-translation="Common.Clear" aria-hidden="true">
+            <span class="lui-icon  lui-icon--small  lui-icon--close" style="padding-top:12px;"></span>
+          </button>
+    </div>
+  </lui-popover-header>
+  <div class="object-add-popover-content" style="height: unset; max-height: 252px;" object-add-typeahead-menu>
+        <ul class="lui-list">
+            <li
+                ng-repeat="item in streamsArray"
+                tid="{{item}}"
+                class="lui-list__item lui-list__action"
+                qva-activate="itemClicked($event,item);"
+                object-add-typeahead-item="item" 
+            >
+                <span qve-highlight text="{{item}}" title="{{item}}" query="search.term" class="lui-list__text lui-list__text--ellipsis"></span>
+            </li>
+        </ul>
+        <div class="object-add-popover-nohits ng-scope" ng-if="isEmpty()" ng-bind="getEmptyMessage()" style="margin-bottom: 10px;"></div>
+        
+</object-add-typeahead>
+</lui-popover>

@@ -1,0 +1,7 @@
+<div class="lui-search">
+    <span class="lui-icon  lui-icon--search  lui-search__search-icon"></span>
+    <input #input [formControl]="control" class="lui-search__input" maxlength="255" spellcheck="false" type="text" placeholder="Search"/>
+    <button class="lui-search__clear-button" (click)="resetInput()">
+      <span class="lui-icon  lui-icon--small  lui-icon--close"></span>
+    </button>
+</div>

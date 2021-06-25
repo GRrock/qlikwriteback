@@ -1,0 +1,39 @@
+<div class="vzb-templates-template-container" [ngClass]="{\'vzb-templates-local-default\': localDefault?.id === preset.id, \'default\': preset.isDefault}">
+    <div class="vzb-preset" [ngClass]="{\'vzb-templates-local-default\': localDefault?.id === preset.id, \'default\': preset.isDefault}">
+        <button *ngIf="allowsRemoving"
+            class="vzb-templates-remove-button-container lui-overlay-button lui-overlay-button--small remove-icon"
+            title="Remove Preset" (click)="removePreset(preset)">
+            <span class="lui-overlay-button__icon lui-icon lui-icon--close lui-icon--small"></span>
+        </button>
+        <img *ngIf="preset.previewImage" class="vzb-templates-template-image" src="{{preset.previewImage}}"
+            (click)="setPreset(preset)">
+        <div *ngIf="!preset.previewImage" class="vzb-templates-template-default" (click)="setPreset(preset)">
+            <i class="lui-icon lui-icon--palette"></i>
+        </div>
+        <div class="vzb-templates-template-subtitle" (click)="setPreset(preset)">
+            <div class="vzb-templates-template-subtitle-edit">
+                <span title="{{preset.title}}" [innerHTML]="preset.title | highlighting: search | sanitizeHtml"></span>
+                <div class="vzb-templates-default-button-container">
+                    <button title="Update template title" *ngIf="allowsTitleChange" class="lui-fade-button vzb-templates-update-template-btn" type="button"
+                            (click)="editTitle($event)">
+                        <span class="lui-icon lui-icon--edit" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+            <div class="vzb-templates-default-button-container">
+                <button type="button"
+                    [title]="preset.isDefault ? \'Company default template\' : (localDefault?.id === preset.id ? \'Unmark\': \'Mark\') + \' as personal default for this app\'"
+                    class="lui-fade-button"
+                    (click)="onLocalDefaultChange(preset, localDefault?.id !== preset.id, $event)">
+                    <span class="lui-icon lui-icon--home"
+                        [ngClass]="{\'vzb-templates-local-default\': localDefault?.id === preset.id && !preset.isDefault, \'default\': preset.isDefault}"
+                        aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+        <div *ngIf="hasDescription" class="vzb-templates-other-info">
+            <span class="vzb-templates-username" title="{{preset.user | getUserId}}">{{preset.user | getUserId}}</span>
+            <span class="vzb-templates-date">{{preset.created | date}}</span>
+        </div>
+    </div>
+</div>

@@ -1,6 +1,6 @@
 var fs = require('fs');
 var archiver = require('archiver');
-var output = fs.createWriteStream('./svgTestGrigorev.zip');
+var output = fs.createWriteStream('./writebackGrigorev.zip');
 var archive = archiver('zip', {
     gzip: true,
     zlib: { level: 9 } // Sets the compression level.
@@ -14,8 +14,8 @@ archive.on('error', function(err) {
 archive.pipe(output);
 
 // append files
-archive.file('./out/svgTestGrigorev.js', {name: 'svgTestGrigorev.js'});
-archive.file('./out/svgTestGrigorev.qext', {name: 'svgTestGrigorev.qext'});
+archive.file('./out/writebackGrigorev.js', {name: 'writebackGrigorev.js'});
+archive.file('./out/writebackGrigorev.qext', {name: 'writebackGrigorev.qext'});
 
 //
 archive.finalize();

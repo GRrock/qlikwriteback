@@ -1,0 +1,41 @@
+<div class="pp-component pp-list-component pp-toplist column-items" tcl="columns">
+    <button
+        class="lui-button lui-button--block pp-toplist-add-button"
+        ng-class="{\'lui-active\': adding && invokedFromPropertyPanel }"
+        ng-click="addClicked($event)"
+        qv-enter="addClicked($event)"
+        ng-disabled="addDisabled() || !definition.allowAdd"
+        tid="add-libraryItem"
+        style="height: 32px"
+    >
+        {{ definition.addTranslation }}<i class="toggle-expand lui-button__caret lui-caret" style="position: absolute; right: 10px"></i>
+    </button>
+    <ul class="pp-expandable-list pp-toplist-content pp-dimension-list" wb-dnd-list="items" wb-dnd-drop="onDrop(index, item)">
+        <li ng-repeat="column in items track by column.id" ng-class="{ \'locked\': column.locked || !definition.allowMove }">
+            <div
+                class="pp-expandable-list-header pp-dimension"
+                ng-click="itemClicked(column)"
+                qva-context-menu="openContextMenu($event, column)"
+                ng-class="{ \'expanded\': !isDragging && column.expanded, \'disabled\': column.disabled, \'invalid\': isInvalid( column ) }"
+                wb-dnd-draggable="column"
+                wb-dnd-dragstart="onDragStart()"
+                wb-dnd-dragend="onDragEnd()"
+            >
+                <span
+                    class="toggle-expand lui-icon {{ column.expanded && !isDragging ? \'lui-icon--triangle-bottom\' : \'lui-icon--triangle-right\' }}"
+                ></span>
+                <span class="text" title="{{getTitle(column)}}">{{ getTitle(column) }}</span>
+                <span class="icon icon-handle pp-move-item" ng-if="definition.allowMove" q-title-translation="Common.Move"></span>
+            </div>
+            <div class="pp-expandable-list-content" ng-if="column.expanded && !column.disabled && !isDragging">
+                <div include-pp-component x-component="listItemComponent" x-definition="listItemDefinition" x-data="column.data" x-args="args"></div>
+                <div style="padding-bottom: 8px" ng-style="{ \'border-bottom\': (column.index === items.length - 1) ? \'1px solid #e6e6e6\' : none}">
+                    <button class="lui-button lui-button--block pp-remove-property" ng-click="removeColumn(column.index)">
+                        <span class="lui-button__text" q-translation="Common.Delete"></span>
+                        <span class="lui-button__icon lui-icon lui-icon--bin remove-icon" q-title-translation="Common.Delete"></span>
+                    </button>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

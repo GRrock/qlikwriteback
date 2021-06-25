@@ -7,7 +7,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'out'),
     libraryTarget: 'amd',
-    filename: 'svgTestGrigorev.js',
+    filename: 'writebackGrigorev.js',
   },
   module: {
     rules: [
@@ -26,4 +26,5 @@ module.exports = {
       }
     ]
   },
+  externals: {qlik: 'qlik'}
 };
